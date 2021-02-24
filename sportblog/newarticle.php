@@ -68,7 +68,7 @@ if (!isset($_SESSION['loggedin'])) {
 
                   <div class="col-md-4 mb-4">
                   <label for="updatetime">วันที่ เวลา ที่ปรับปรุงบทความล่าสุด :</label>
-                  <input type="datetime-local" class="form-control" placeholder="Enter Updatetime" name="updatetime">
+                  <input type="datetime-local" class="form-control" placeholder="Enter Updatetime" name="updatetime" >
                   </div>
 
                   <div class="form-check-inline">

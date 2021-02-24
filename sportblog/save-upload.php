@@ -13,7 +13,7 @@ if(isset($_POST['submit'])){
     $checktype = $_FILES["file"]["type"];
     $checksize = $_FILES["file"]["size"];
     
-    if($checksize == "image/jpg" || $checktype == "image/png" || $checktype == "image/jpeg"){
+    if($checktype == "image/jpg" || $checktype == "image/png" || $checktype == "image/jpeg"){
         if ($checksize < 1000000) { // check file size 1MB
             $dir = "upload/";
             $fileImage = $dir . basename($_FILES["file"]["name"]);

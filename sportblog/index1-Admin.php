@@ -48,7 +48,10 @@ img {
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="index-Admin.php"><font color="#FFCC00">จัดการบทความทั้งหมด <i class='fas fa-book-open' style='font-size:24px'></i></font></i></a>
+          <a class="nav-link" href="Admin-edituser.php"><font color="#FFCC00"><i class='fas fa-user' style='font-size:24px'></i> จัดการข้อมูล User</font></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index-Admin.php"><font color="#FFCC00"><i class='fas fa-book' style='font-size:24px'></i> จัดการบทความทั้งหมด </font></i></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="logout.php"><font color="#FFCC00">Logout <i class='fas fa-sign-out-alt' style='font-size:24px'></font></i></a>
@@ -87,7 +90,7 @@ img {
               </div>
             </div>
           </form>
-    <h5 align='right'><i class='fas fa-user' style='font-size:36px'></i> : <?php echo $_SESSION["username"]; ?></h5>
+          
       <?php
     if($q==''){
       

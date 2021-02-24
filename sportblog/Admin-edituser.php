@@ -61,9 +61,9 @@ if (!isset($_SESSION['loggedin'])) {
     <br><br><br>
     <?php $b = (isset($_GET['b']) ? $_GET['b'] : ''); ?>
     <h1>User : Admin </h1>
-    <h4 align='center'>บทความทั้งหมดของ Sport-Blog</h4>
+    <h4 align='center'>ข้อมูลทั้งหมดของ User</h4>
     <br>
-          <form action="index-Admin.php" method="get" class="form-horizontal">
+          <form action="Admin-edituser.php" method="get" class="form-horizontal">
             <div class="form-group row">
               <div class="col-sm-3">
                 <input type="text" name="b" class="form-control" >
@@ -77,17 +77,17 @@ if (!isset($_SESSION['loggedin'])) {
     <br>
       <?php
     if($b==''){
-      // connect database 
+        // connect database 
     require_once('connection.php');
 
     $mysqli = new mysqli($db_host, $db_user, $db_password, $db_name);
     $mysqli->set_charset("utf8");
-    $id = $_SESSION['authors_id'];
+    // $id = $_SESSION['authors_id'];
 
     // select data from tables
     $sql = "SELECT *
-    FROM articles 
-    ORDER BY updatetime DESC";
+    FROM authors
+    WHERE user_group = 'U' ";
     $result = $mysqli->query($sql);
 
     if (!$result) {
@@ -101,12 +101,12 @@ if (!isset($_SESSION['loggedin'])) {
 <table border='2'>
 
 <tr>
-<th>ID Article</th>
-<th>Title</th>
-<th>CreateTime</th>
-<th>UpdateTime</th>
-<th>Publish</th>
-<th>Detail</th>
+<th>ID User</th>
+<th>Username</th>
+<th>Name</th>
+<th>Penname</th>
+<th>Email</th>
+<th>Edit</th>
 <th>Delete</th>
 </tr>
 
@@ -118,34 +118,28 @@ if (!isset($_SESSION['loggedin'])) {
             <center><?php echo $row->id ?></center>
         </td>
         <td>
-            <center><?php echo $row->title ?></center>
+            <center><?php echo $row->username ?></center>
         </td>
         <td>
-            <?php echo $row->create_ts ?>
+        <center><?php echo $row->name ?></center>
         </td>
         <td>
-            <?php echo $row->updatetime ?>
-        </td>
-        
-        <td>
-           <center> <?php 
-                    if ($row->publish_sts == 'Y'){
-                    echo "<a href='publish-Admin.php?idY=$row->id'><button type='button' class='btn btn-danger'>Unpublish</button></a>";
-                    }elseif($row->publish_sts == 'N') { 
-                    echo "<a href='publish-Admin.php?idN=$row->id'><button type='button' class='btn btn-success'>Publish</button></a>";
-                    }; ?> </center>
-                  
+        <center><?php echo $row->penname ?></center>
         </td>
        
         <td>
             <div>
-            <center><a href="detail-Admin.php?id=<?php echo $row->id?>"><i class="far fa-clipboard" style="font-size:24px;color:black"></i></a></center>
+            <center><?php echo $row->email ?></center>
             </div>
         </td>
-
         <td>
             <div>
-            <center><a href="deletearticle-Admin.php?id=<?php echo $row->id?>"><i class="fa fa-trash" style="font-size:24px;color:red"></i></a></center>
+            <center><a href="editauthor-Admin.php?id=<?php echo $row->id?>"><i class="fa fa-tools" style="font-size:20px;color:gray"></i></a></center>
+            </div>
+        </td>
+        <td>
+            <div>
+            <center><a href="deleteauthor-Admin.php?id=<?php echo $row->id?>"><i class="fa fa-trash" style="font-size:24px;color:red"></i></a></center>
             </div>
         </td>
         
@@ -157,17 +151,17 @@ if (!isset($_SESSION['loggedin'])) {
   <?php
           } 
     }else if($b!=''){
-      // connect database 
+         // connect database 
     require_once('connection.php');
 
     $mysqli = new mysqli($db_host, $db_user, $db_password, $db_name);
     $mysqli->set_charset("utf8");
-    $id = $_SESSION['authors_id'];
+    // $id = $_SESSION['authors_id'];
 
     // select data from tables
     $sql = "SELECT *
-    FROM articles
-    WHERE title LIKE '%$b%' OR id LIKE '%$b%'";
+    FROM authors
+    WHERE username LIKE '%$b%' OR id LIKE '%$b%' OR name LIKE '%$b%' OR penname LIKE '%$b%' OR email LIKE '%$b%'";
     $result = $mysqli->query($sql);
 
     if (!$result) {
@@ -181,12 +175,12 @@ if (!isset($_SESSION['loggedin'])) {
 <table border='2'>
 
 <tr>
-<th>ID Article</th>
-<th>Title</th>
-<th>CreateTime</th>
-<th>UpdateTime</th>
-<th>Publish</th>
-<th>Detail</th>
+<th>ID User</th>
+<th>Username</th>
+<th>Name</th>
+<th>Penname</th>
+<th>Email</th>
+<th>Edit</th>
 <th>Delete</th>
 </tr>
 
@@ -198,34 +192,28 @@ if (!isset($_SESSION['loggedin'])) {
             <center><?php echo $row->id ?></center>
         </td>
         <td>
-            <center><?php echo $row->title ?></center>
+            <center><?php echo $row->username ?></center>
         </td>
         <td>
-            <?php echo $row->create_ts ?>
+        <center><?php echo $row->name ?></center>
         </td>
         <td>
-            <?php echo $row->updatetime ?>
-        </td>
-        
-        <td>
-           <center> <?php 
-                    if ($row->publish_sts == 'Y'){
-                    echo "<a href='publish-Admin.php?idY=$row->id'><button type='button' class='btn btn-danger'>Unpublish</button></a>";
-                    }elseif($row->publish_sts == 'N') { 
-                    echo "<a href='publish-Admin.php?idN=$row->id'><button type='button' class='btn btn-success'>Publish</button></a>";
-                    }; ?> </center>
-                  
+        <center><?php echo $row->penname ?></center>
         </td>
        
         <td>
             <div>
-            <center><a href="detail-Admin.php?id=<?php echo $row->id?>"><i class="far fa-clipboard" style="font-size:24px;color:black"></i></a></center>
+            <center><?php echo $row->email ?></center>
             </div>
         </td>
-
         <td>
             <div>
-            <center><a href="deletearticle-Admin.php?id=<?php echo $row->id?>"><i class="fa fa-trash" style="font-size:24px;color:red"></i></a></center>
+            <center><a href="editauthor-Admin.php?id=<?php echo $row->id?>"><i class="fa fa-tools" style="font-size:20px;color:gray"></i></a></center>
+            </div>
+        </td>
+        <td>
+            <div>
+            <center><a href="deleteauthor-Admin.php?id=<?php echo $row->id?>"><i class="fa fa-trash" style="font-size:24px;color:red"></i></a></center>
             </div>
         </td>
         
